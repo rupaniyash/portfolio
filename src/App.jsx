@@ -209,7 +209,7 @@ const Portfolio = () => {
               </p>
               <p>
                 With a strong foundation in <span className="text-cyan-400 font-medium">Python, SQL, and Distributed Computing</span>, 
-                I enjoy tackling complex data challenges—whether it's optimizing search algorithms with RAG or processing 
+                I enjoy tackling complex data challenges, whether it's optimizing search algorithms with RAG or processing 
                 streaming sensor data in real-time.
               </p>
               <p>
