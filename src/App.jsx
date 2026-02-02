@@ -13,10 +13,13 @@ import {
   ChevronDown,
   Menu,
   X,
+  Zap,
+  ShieldCheck,
   GraduationCap,
   MapPin,
   TrendingUp,
-  LineChart
+  LineChart,
+  FileText
 } from 'lucide-react';
 
 const Portfolio = () => {
@@ -143,7 +146,7 @@ const Portfolio = () => {
             </h1>
             
             <h2 className="text-xl sm:text-2xl md:text-3xl text-slate-400 font-light">
-              Software & Data Engineer
+              Data Engineer
             </h2>
             
             <p className="text-slate-400 text-base sm:text-lg md:text-xl max-w-lg leading-relaxed">
@@ -152,14 +155,26 @@ const Portfolio = () => {
             </p>
             
             <div className="flex gap-4 pt-4">
-              <a href="https://github.com/rupaniyash" target="_blank" rel="noreferrer" className="p-3 md:p-4 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-cyan-400 transition-all transform hover:-translate-y-1">
-                <Github className="w-5 h-5 md:w-6 md:h-6" />
+              {/* Resume Button - Primary CTA */}
+              <a 
+                href="/portfolio/resume.pdf" 
+                target="_blank"
+                rel="noreferrer"
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all flex items-center gap-2"
+              >
+                <FileText className="w-5 h-5" />
+                <span>Resume</span>
               </a>
-              <a href="https://www.linkedin.com/in/yash-rupani-/" target="_blank" rel="noreferrer" className="p-3 md:p-4 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-blue-400 transition-all transform hover:-translate-y-1">
-                <Linkedin className="w-5 h-5 md:w-6 md:h-6" />
+
+              {/* Social Icons */}
+              <a href="https://github.com/rupaniyash" target="_blank" rel="noreferrer" className="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-cyan-400 transition-all transform hover:-translate-y-1">
+                <Github className="w-6 h-6" />
               </a>
-              <a href="mailto:rupaniyash1818@gmail.com" className="p-3 md:p-4 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-red-400 transition-all transform hover:-translate-y-1">
-                <Mail className="w-5 h-5 md:w-6 md:h-6" />
+              <a href="https://www.linkedin.com/in/yash-rupani-/" target="_blank" rel="noreferrer" className="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-blue-400 transition-all transform hover:-translate-y-1">
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a href="mailto:rupaniyash1818@gmail.com" className="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-red-400 transition-all transform hover:-translate-y-1">
+                <Mail className="w-6 h-6" />
               </a>
             </div>
           </div>
@@ -178,7 +193,7 @@ const Portfolio = () => {
                 <p className="pl-4 text-slate-400">def <span className="text-blue-400">__init__</span>(self):</p>
                 <p className="pl-8 text-slate-500">self.name = <span className="text-green-400">"Yash Rupani"</span></p>
                 <p className="pl-8 text-slate-500">self.skills = [<span className="text-green-400">"Python"</span>, <span className="text-green-400">"Spark"</span>, <span className="text-green-400">"AWS"</span>]</p>
-                <p className="pl-8 text-slate-500">self.location = <span className="text-green-400">"Corvallis, OR"</span></p>
+                <p className="pl-8 text-slate-500">self.location = <span className="text-green-400">"United States"</span></p>
                 <br/>
                 <p className="pl-4 text-slate-400">def <span className="text-blue-400">solve_problem</span>(self, data):</p>
                 <p className="pl-8 text-slate-500"># Transforming complexity into clarity</p>
@@ -204,7 +219,7 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-6 text-slate-400 leading-relaxed text-base md:text-lg">
               <p>
-                I am a passionate <span className="text-cyan-400 font-medium">Software and Data Engineer</span> based in Corvallis, Oregon. 
+                I am a passionate <span className="text-cyan-400 font-medium">Software and Data Engineer</span> based in United States. 
                 My journey involves designing scalable ETL pipelines and backend architectures that power data-driven decision-making.
               </p>
               <p>
@@ -218,7 +233,7 @@ const Portfolio = () => {
               
               <div className="flex items-center gap-2 mt-4 text-slate-300">
                 <MapPin className="text-cyan-500" size={20} />
-                <span>Corvallis, OR</span>
+                <span>United States</span>
               </div>
             </div>
 
@@ -266,33 +281,43 @@ const Portfolio = () => {
             {/* Experience Items */}
             {[
               {
-                role: "Intern AI Agent Graph RAG / ML Scientist",
-                company: "GrantAide",
-                period: "Jul 2025 - Sept 2025",
+                role: "Research Assistant - Data Engineering Focus",
+                company: "Oregon State University",
+                period: "Oct 2025 - Dec 2025",
                 description: [
-                  "Optimized backend systems using Flask and Firestore, improving performance by 30%.",
-                  "Implemented RAG with FAISS vector DBs, boosting search accuracy by 40%.",
-                  "Deployed cloud apps on GCP/AWS with 99.9% uptime."
+                  "Built autonomous ETL pipelines for multimedia data, eliminating 40% of manual prep time.",
+                  "Optimized backend indexing for AI Agents, cutting retrieval latency by 25%.",
+                  "Enforced validation frameworks to ensure data integrity for terabyte-scale datasets."
                 ]
               },
               {
-                role: "Teaching Assistant (Business Analytics)",
+                role: "AI Agent Graph RAG / ML Scientist Intern",
+                company: "GrantAide",
+                period: "Jul 2025 - Sep 2025",
+                description: [
+                  "Architected scalable Flask/Firestore backends, reducing API latency by 30%.",
+                  "Implemented FAISS vector search, boosting search relevance by 40%.",
+                  "Deployed multi-cloud systems (AWS/GCP) with 99.9% uptime."
+                ]
+              },
+              {
+                role: "Teaching Assistant - Integrated Business Analytics",
                 company: "Oregon State University",
                 period: "Apr 2025 - Jun 2025",
                 description: [
-                  "Led Python-based data wrangling for industry projects (Trailblazers, Port of Portland).",
-                  "Improved data accuracy by 25% using Pandas/NumPy.",
-                  "Coordinated academic-industry partnerships for 15+ students."
+                  "Led Python analytics projects for clients like Port of Portland, ensuring 100% on-time delivery.",
+                  "Automated data validation with Pandas, improving dataset reliability by 25%.",
+                  "Mentored 15+ students on technical storytelling and requirement gathering."
                 ]
               },
               {
-                role: "Sr. Systems Engineer - Data Engineering",
+                role: "Senior Systems Engineer - Data Engineering",
                 company: "Infosys",
                 period: "Jun 2021 - Jun 2023",
                 description: [
-                  "Streamlined data quality pipelines, reducing validation time by 35%.",
-                  "Designed ETL workflows for user behavior data, improving efficiency by 40%.",
-                  "Automated pipeline infrastructure scripts, cutting operational overhead by 30%."
+                  "Modernized data quality pipelines, saving 10+ hours/week of manual work.",
+                  "Optimized ETL workflows, reducing processing runtime by 40%.",
+                  "Built automated dashboards to replace manual log analysis."
                 ]
               }
             ].map((job, index) => (
@@ -331,6 +356,96 @@ const Portfolio = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
+            {/* Project 4: Crypto Sentinel */}
+            <div className="bg-slate-900 rounded-xl p-8 border border-slate-800 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all group">
+              <div className="flex justify-between items-start mb-6">
+                <div className="p-3 bg-slate-800 rounded-lg text-purple-400 group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-6 h-6 md:w-7 md:h-7" />
+                </div>
+                <div className="flex gap-4">
+                  {/* Live Link Button */}
+                  <a 
+                    href="http://165.232.153.250:8501/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-slate-500 hover:text-purple-400 transform hover:scale-110 transition-transform"
+                    title="View Live Demo"
+                  >
+                    <ExternalLink className="w-5 h-5 md:w-6 md:h-6" />
+                  </a>
+                  {/* GitHub Button */}
+                  <a 
+                    href="https://github.com/rupaniyash/crypto-sentinel" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-slate-500 hover:text-slate-300 transform hover:scale-110 transition-transform"
+                    title="View Code"
+                  >
+                    <Github className="w-5 h-5 md:w-6 md:h-6" />
+                  </a>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-slate-200 mb-3 group-hover:text-purple-400 transition-colors">
+                Crypto Sentinel
+              </h3>
+              <p className="text-slate-400 text-sm md:text-base mb-6 leading-relaxed">
+                Developed an automated cryptocurrency monitoring tool to track market trends and sentiment.
+                Integrates with external APIs to fetch live data, enabling strategic tracking of digital assets and alerting.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["Python", "Rest APIs", "SQL", "Automation", "Data Engineering"].map(tag => (
+                  <span key={tag} className="text-xs md:text-sm font-mono text-purple-300/80 bg-purple-950/30 px-3 py-1.5 rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Project 3: Shop Pulse (Real-time Pipeline) */}
+            <div className="bg-slate-900 rounded-xl p-8 border border-slate-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all group">
+              <div className="flex justify-between items-start mb-6">
+                <div className="p-3 bg-slate-800 rounded-lg text-blue-400 group-hover:scale-110 transition-transform">
+                  <Zap className="w-6 h-6 md:w-7 md:h-7" />
+                </div>
+                <div className="flex gap-4">
+                  {/* Live Link Button */}
+                  <a 
+                    href="https://shop-pulse.streamlit.app/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-slate-500 hover:text-blue-400 transform hover:scale-110 transition-transform"
+                    title="View Live Demo"
+                  >
+                    <ExternalLink className="w-5 h-5 md:w-6 md:h-6" />
+                  </a>
+                  {/* GitHub Button */}
+                  <a 
+                    href="https://github.com/rupaniyash/shop-pulse" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-slate-500 hover:text-slate-300 transform hover:scale-110 transition-transform"
+                    title="View Code"
+                  >
+                    <Github className="w-5 h-5 md:w-6 md:h-6" />
+                  </a>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-slate-200 mb-3 group-hover:text-blue-400 transition-colors">
+                Shop Pulse: Real-Time Pipeline
+              </h3>
+              <p className="text-slate-400 text-sm md:text-base mb-6 leading-relaxed">
+                Built a scalable real-time data engineering pipeline for e-commerce analytics. 
+                Ingests high-volume transaction streams using Apache Kafka and processes them with Spark Structured Streaming for instant insights.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["Apache Spark", "Kafka", "Python", "Docker", "AWS"].map(tag => (
+                  <span key={tag} className="text-xs md:text-sm font-mono text-blue-300/80 bg-blue-950/30 px-3 py-1.5 rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             {/* Project 1: YouTube Data Engineering */}
             <div className="bg-slate-900 rounded-xl p-8 border border-slate-800 hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/10 transition-all group">
               <div className="flex justify-between items-start mb-6">
@@ -350,9 +465,7 @@ const Portfolio = () => {
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-slate-200 mb-3 group-hover:text-red-400 transition-colors">YouTube Data Engineering</h3>
               <p className="text-slate-400 text-sm md:text-base mb-6 leading-relaxed">
-                Designed a secure and scalable ETL pipeline to process YouTube trending video data. 
-                Leveraged AWS Cloud (S3, Glue, Athena) to ingest structured and semi-structured data, 
-                enabling analytics on video categories and engagement metrics.
+                Architected a serverless data lake on AWS (S3, Glue, Athena) to process 102B+ video views. Optimized Parquet partitioning to cut storage costs by 65% and reduced query scan costs by 50%.
               </p>
               <div className="flex flex-wrap gap-2">
                 {["AWS S3", "AWS Glue", "AWS Athena", "Python", "QuickSight"].map(tag => (
@@ -484,7 +597,7 @@ const Portfolio = () => {
 
           <div className="mt-20 pt-10 border-t border-slate-800 text-slate-500 text-xs md:text-sm">
             <p>Designed & Built by Yash Rupani</p>
-            <p className="mt-2">Corvallis, OR • +1 541-250-1204</p>
+            <p className="mt-2">United States • +1 541-250-1204</p>
           </div>
         </div>
       </section>
