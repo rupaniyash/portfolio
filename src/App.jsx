@@ -410,7 +410,7 @@ const Portfolio = () => {
                 <div className="flex gap-4">
                   {/* Live Link Button */}
                   <a 
-                    href="https://shop-pulse.streamlit.app/" 
+                    href="https://shop-pulse-frontend-nhz0d68k9-yash-rupanis-projects.vercel.app/" 
                     target="_blank" 
                     rel="noreferrer"
                     className="text-slate-500 hover:text-blue-400 transform hover:scale-110 transition-transform"
