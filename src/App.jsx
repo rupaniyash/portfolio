@@ -365,7 +365,7 @@ const Portfolio = () => {
                 <div className="flex gap-4">
                   {/* Live Link Button */}
                   <a 
-                    href="http://165.232.153.250:8501/" 
+                    href="https://crypto-frontend-puce-theta.vercel.app/" 
                     target="_blank" 
                     rel="noreferrer"
                     className="text-slate-500 hover:text-purple-400 transform hover:scale-110 transition-transform"
