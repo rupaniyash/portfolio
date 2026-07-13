@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import avatarFace from './assets/avatar_face_2.png';
+import resumePdf from '../Resume_YashRupani.pdf';
 
 /* ═══════════════════════════════════════════════════════════
    REUSABLE COMPONENTS
@@ -118,7 +119,7 @@ const AnimatedChar = ({ char, range, progress }) => {
 // ── ContactButton ──
 const ContactButton = () => (
   <a
-    href="mailto:rupaniyash@gmail.com"
+    href="mailto:rupaniyash1818@gmail.com"
     style={{
       background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
       boxShadow: '0px 8px 20px rgba(181, 1, 167, 0.5), inset 4px 4px 12px #7721B1',
@@ -131,6 +132,34 @@ const ContactButton = () => (
     className="rounded-full text-white font-semibold uppercase tracking-widest px-10 py-4 md:px-12 md:py-5 text-base md:text-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-[0px_10px_25px_rgba(181,1,167,0.7)]"
   >
     Contact Me
+  </a>
+);
+
+// ── DownloadResumeButton ──
+const DownloadResumeButton = () => (
+  <a
+    href={resumePdf}
+    download="Resume_YashRupani.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      background: 'transparent',
+      border: '2px solid rgba(250, 250, 249, 0.8)',
+      fontFamily: "'Kanit', sans-serif",
+      whiteSpace: 'nowrap',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '12px',
+      padding: '16px 40px',
+    }}
+    className="rounded-full text-[#FAFAF9] font-semibold uppercase tracking-widest text-base md:text-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:bg-[#FAFAF9] hover:text-[#0C0C0C]"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Resume
   </a>
 );
 
@@ -257,7 +286,10 @@ const HeroSection = () => {
           </FadeIn>
 
           <FadeIn delay={0.5} y={20}>
-            <ContactButton />
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-end sm:items-center">
+              <DownloadResumeButton />
+              <ContactButton />
+            </div>
           </FadeIn>
         </div>
       </div>
@@ -434,111 +466,317 @@ const AboutSection = () => {
 };
 
 /* ═══════════════════════════════════════════════════════════
-   4. SERVICES SECTION
+   3.5 EXPERIENCE SECTION
    ═══════════════════════════════════════════════════════════ */
-const SERVICES = [
+const EXPERIENCE = [
   {
-    num: '01',
-    name: 'ETL Pipeline Design & Orchestration',
-    desc: 'Building end-to-end automated data pipelines using Apache Spark, Kafka, and Airflow — handling both real-time streaming and batch processing at scale across cloud and on-prem environments.',
+    role: 'Software Engineering Intern',
+    company: 'QuickGrants',
+    date: 'May 2026 – Present',
+    location: 'Remote, USA',
+    points: [
+      'Engineered an automated rule generation pipeline using OCR and text chunking, processing 100+ page policy documents and reducing manual data extraction time by 80%.',
+      'Architected backend parsing workflows to transform unstructured text into structured reports, accelerating the preparation time for technical product demonstrations by 15 hours per week.',
+      'Optimized the data extraction accuracy of the parsing tool to 95%, ensuring reliable and formatted outputs for client-facing engineering prototypes.',
+    ],
   },
   {
-    num: '02',
-    name: 'Cloud Data Architecture (AWS / GCP)',
-    desc: 'Architecting scalable data lakes and warehouses on AWS and GCP using services like S3, Glue, EMR, BigQuery, and Redshift — optimized for cost, performance, and reliability.',
+    role: 'Research Assistant – Data Engineering',
+    company: 'Oregon State University',
+    date: 'May 2026 – Present',
+    location: 'OR, USA',
+    points: [
+      'Engineered an end-to-end autonomous ETL pipeline for unstructured multimedia data, leveraging Python-based preprocessing to eliminate 40% of manual data preparation for Agentic AI workflows.',
+      'Refined backend data structures and indexing strategies for AI Agents, slashing retrieval latency by 25% and boosting real-time inference performance.',
+      'Developed robust data validation frameworks to ensure 100% data integrity while enabling scalable ingestion of terabyte-scale datasets.',
+    ],
   },
   {
-    num: '03',
-    name: 'AI & RAG Systems / LLM Integration',
-    desc: 'Designing AI-driven data pipelines with FAISS vector databases, RAG frameworks, and LLM integrations — enabling semantic search, intelligent retrieval, and generative AI at the data layer.',
-  },
-  {
-    num: '04',
-    name: 'Real-time Streaming (Kafka / Spark)',
-    desc: 'Building low-latency event-driven architectures with Apache Kafka and Spark Streaming — processing millions of events per second for real-time analytics and operational intelligence.',
-  },
-  {
-    num: '05',
-    name: 'Data Modeling & Warehousing',
-    desc: 'Designing dimensional and normalized data models in Snowflake, Redshift, and BigQuery — enabling fast, reliable analytics across business domains at terabyte scale.',
-  },
-  {
-    num: '06',
-    name: 'Analytics, Dashboards & Visualization',
-    desc: 'Translating complex data into clear, actionable insights through dynamic dashboards (Tableau, Looker, Power BI) and automated reporting pipelines built for stakeholder decision-making.',
+    role: 'Sr. Systems Engineer (Data Engineering)',
+    company: 'Infosys (Charter Communications)',
+    date: 'Jun 2021 – Jun 2023',
+    location: 'Maharashtra, India',
+    points: [
+      'Spearheaded the modernization of enterprise data quality pipelines, automating workflows to eliminate 10+ hours/week of manual intervention.',
+      'Designed high-performance ETL workflows using Apache Spark to process large-scale system monitoring data, compressing runtime by 40% per cycle.',
+      'Constructed dynamic dashboards from semi-structured logs, replacing manual analysis with automated monitoring solutions.',
+    ],
   },
 ];
 
-const ServicesSection = () => {
+const EDUCATION = [
+  {
+    degree: 'Master of Engineering in Computer Science',
+    school: 'Oregon State University, USA',
+    date: 'Sep 2023 – Dec 2025',
+  },
+  {
+    degree: 'Bachelor of Technology in Electrical Engineering',
+    school: 'PDEU, India',
+    date: 'Aug 2017 – Jun 2021',
+  },
+];
+
+const ExperienceSection = () => {
   return (
     <section
-      id="skills"
-      className="bg-white rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32"
+      id="experience"
+      className="py-20 sm:py-24 md:py-32 px-5 sm:px-8 md:px-10"
+      style={{ background: '#0C0C0C' }}
     >
-      <h2
-        className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-28"
-        style={{
-          color: '#0C0C0C',
-          fontSize: 'clamp(3rem, 12vw, 160px)',
-          fontFamily: "'Kanit', sans-serif",
-        }}
-      >
-        Skills
-      </h2>
+      <FadeIn delay={0} y={40}>
+        <h2
+          className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24"
+          style={{
+            color: '#FAFAF9',
+            fontSize: 'clamp(3rem, 12vw, 160px)',
+            fontFamily: "'Kanit', sans-serif",
+          }}
+        >
+          Experience
+        </h2>
+      </FadeIn>
 
-      <div className="max-w-5xl mx-auto">
-        {SERVICES.map((svc, i) => (
-          <FadeIn key={svc.num} delay={i * 0.1}>
-            <div
-              className="flex items-start gap-6 md:gap-10 py-8 sm:py-10 md:py-12"
-              style={{
-                borderTop: i === 0 ? '1px solid rgba(12,12,12,0.15)' : 'none',
-                borderBottom: '1px solid rgba(12,12,12,0.15)',
-              }}
-            >
-              {/* Number */}
-              <span
-                className="font-black shrink-0 leading-none"
-                style={{
-                  color: '#0C0C0C',
-                  fontSize: 'clamp(3rem, 10vw, 140px)',
-                  fontFamily: "'Kanit', sans-serif",
-                }}
-              >
-                {svc.num}
-              </span>
+      <div className="max-w-4xl mx-auto relative">
+        {/* Glowing Timeline Line */}
+        <div 
+          className="absolute left-[7px] sm:left-[11px] top-0 bottom-0 w-[2px] opacity-20"
+          style={{
+            background: 'linear-gradient(to bottom, transparent, #CA8A04 5%, #CA8A04 95%, transparent)',
+          }}
+        />
 
-              {/* Name + Desc */}
-              <div className="flex flex-col gap-2 pt-2">
-                <h3
-                  className="font-medium uppercase"
-                  style={{
-                    color: '#0C0C0C',
-                    fontSize: 'clamp(1rem, 2.2vw, 2.1rem)',
-                    fontFamily: "'Kanit', sans-serif",
-                  }}
-                >
-                  {svc.name}
-                </h3>
-                <p
-                  className="font-light leading-relaxed max-w-2xl"
-                  style={{
-                    color: '#0C0C0C',
-                    opacity: 0.6,
-                    fontSize: 'clamp(0.85rem, 1.6vw, 1.25rem)',
-                    fontFamily: "'Kanit', sans-serif",
-                  }}
-                >
-                  {svc.desc}
-                </p>
+        <div className="flex flex-col gap-12 sm:gap-20">
+          {EXPERIENCE.map((exp, i) => (
+            <FadeIn key={i} delay={0.1} y={30}>
+              <div className="relative flex gap-6 sm:gap-10 group">
+                {/* Timeline Dot Column */}
+                <div className="relative w-[16px] sm:w-[24px] flex-shrink-0 flex justify-center mt-2">
+                  <div 
+                    className="w-[10px] h-[10px] rounded-full bg-[#CA8A04] transition-all duration-300 group-hover:scale-150 group-hover:shadow-[0_0_15px_#CA8A04]"
+                  />
+                </div>
+                
+                {/* Content Column */}
+                <div className="flex flex-col flex-1 w-full pb-4">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-4">
+                    <h3 className="font-bold text-[#FAFAF9] text-xl sm:text-2xl" style={{ fontFamily: "'Kanit', sans-serif", letterSpacing: '0.05em' }}>
+                      {exp.role}
+                    </h3>
+                    <span className="text-[#CA8A04] font-medium text-sm sm:text-base mt-1 sm:mt-0 tracking-widest uppercase">
+                      {exp.date}
+                    </span>
+                  </div>
+                  
+                  <h4 className="text-[#D7E2EA] opacity-70 text-lg mb-6 tracking-wide" style={{ fontFamily: "'Kanit', sans-serif" }}>
+                    {exp.company} <span className="opacity-50 mx-2">•</span> {exp.location}
+                  </h4>
+                  
+                  <ul className="flex flex-col gap-3">
+                    {exp.points.map((point, j) => {
+                      // Highlight numbers and percentages
+                      const highlightedPoint = point.replace(/\b(\d+(?:\.\d+)?%?|\d+\+)\b/g, '<span style="color: #CA8A04; font-weight: 600;">$1</span>');
+                      return (
+                        <li key={j} className="text-[#FAFAF9] opacity-80 leading-relaxed text-sm sm:text-base flex items-start gap-3">
+                          <span className="text-[#CA8A04] mt-1 opacity-50">▹</span>
+                          <span dangerouslySetInnerHTML={{ __html: highlightedPoint }} />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
-            </div>
-          </FadeIn>
-        ))}
+            </FadeIn>
+          ))}
+        </div>
+
+        {/* Education Sub-section */}
+        <FadeIn delay={0.2} y={30}>
+          <div className="mt-24 sm:mt-32 relative flex gap-6 sm:gap-10 group">
+             {/* Education Icon/Dot Column */}
+             <div className="relative w-[16px] sm:w-[24px] flex-shrink-0 flex justify-center mt-2">
+               <div 
+                  className="w-[18px] h-[18px] rounded-full border-2 border-[#CA8A04] bg-[#0C0C0C] flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_15px_#CA8A04]"
+                >
+                  <div className="w-[6px] h-[6px] rounded-full bg-[#CA8A04]" />
+                </div>
+              </div>
+              
+              {/* Education Content Column */}
+              <div className="flex flex-col flex-1 w-full">
+                <h3 className="font-black uppercase text-[#FAFAF9] text-2xl sm:text-3xl mb-8 tracking-widest" style={{ fontFamily: "'Kanit', sans-serif" }}>
+                  Education
+                </h3>
+
+                <div className="flex flex-col gap-8">
+                  {EDUCATION.map((edu, i) => (
+                    <div key={i} className="flex flex-col border-l-2 border-[#CA8A04]/20 pl-6">
+                      <h4 className="font-bold text-[#FAFAF9] text-lg sm:text-xl" style={{ fontFamily: "'Kanit', sans-serif", letterSpacing: '0.05em' }}>
+                        {edu.degree}
+                      </h4>
+                      <p className="text-[#D7E2EA] opacity-70 text-base mt-1 tracking-wide" style={{ fontFamily: "'Kanit', sans-serif" }}>
+                        {edu.school}
+                      </p>
+                      <span className="text-[#CA8A04] font-medium text-sm mt-2 tracking-widest uppercase opacity-80">
+                        {edu.date}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
 };
+
+/* ═══════════════════════════════════════════════════════════
+   4. SKILLS SECTION
+   ═══════════════════════════════════════════════════════════ */
+const SKILL_CATEGORIES = [
+  {
+    label: 'Languages',
+    skills: ['Python', 'SQL', 'Scala', 'Java', 'Bash'],
+  },
+  {
+    label: 'Data Engineering',
+    skills: ['Apache Spark', 'Kafka', 'Airflow', 'dbt', 'Flink', 'Spark Streaming'],
+  },
+  {
+    label: 'Cloud Platforms',
+    skills: ['AWS', 'GCP', 'Azure', 'S3', 'EMR', 'Glue', 'Lambda', 'Athena', 'Dataflow'],
+  },
+  {
+    label: 'Data Warehousing',
+    skills: ['Snowflake', 'BigQuery', 'Redshift', 'PostgreSQL'],
+  },
+  {
+    label: 'Databases',
+    skills: ['MongoDB', 'Cassandra', 'MySQL', 'Redis', 'FAISS'],
+  },
+  {
+    label: 'AI / ML',
+    skills: ['LangChain', 'RAG', 'Vector DBs', 'LLM Integration', 'Hugging Face'],
+  },
+  {
+    label: 'Visualization',
+    skills: ['Tableau', 'Power BI', 'Looker', 'Matplotlib'],
+  },
+  {
+    label: 'DevOps & Tools',
+    skills: ['Docker', 'Kubernetes', 'Terraform', 'Git', 'CI/CD'],
+  },
+];
+
+const ServicesSection = () => {
+  // Flatten and distribute skills into 3 rows
+  const allSkills = SKILL_CATEGORIES.flatMap(cat => cat.skills);
+  const rows = [[], [], []];
+  allSkills.forEach((skill, i) => {
+    rows[i % 3].push(skill);
+  });
+
+  return (
+    <section
+      id="skills"
+      className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] py-20 sm:py-24 md:py-32 overflow-hidden"
+      style={{ background: '#111' }}
+    >
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-container:hover .marquee-track {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <FadeIn delay={0} y={40}>
+        <h2
+          className="font-black uppercase text-center mb-16 sm:mb-20 px-5"
+          style={{
+            color: '#FAFAF9',
+            fontSize: 'clamp(3rem, 12vw, 160px)',
+            fontFamily: "'Kanit', sans-serif",
+          }}
+        >
+          Skills
+        </h2>
+      </FadeIn>
+
+      <div 
+        className="flex flex-col gap-2 sm:gap-4 transform -rotate-2 scale-105"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+          maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+        }}
+      >
+        {rows.map((row, i) => {
+          const isReverse = i % 2 !== 0;
+          const duration = 40 + (i * 15); // speeds: 40s, 55s, 70s
+          
+          return (
+            <div key={i} className="marquee-container relative flex overflow-hidden whitespace-nowrap w-full w-[110vw] -ml-[5vw]">
+              <div 
+                className="marquee-track flex items-center"
+                style={{
+                  width: 'max-content',
+                  animation: `marquee-scroll ${duration}s linear infinite ${isReverse ? 'reverse' : 'normal'}`,
+                }}
+              >
+                {/* Repeat 4 times to ensure it covers wide screens */}
+                {[...row, ...row, ...row, ...row].map((skill, idx) => {
+                  const isOutline = idx % 2 === 0;
+                  return (
+                    <div key={`${skill}-${idx}`} className="flex items-center">
+                      <span
+                        className="uppercase font-black mx-6 sm:mx-10 cursor-default"
+                        style={{
+                          color: isOutline ? 'transparent' : '#FAFAF9',
+                          WebkitTextStroke: isOutline ? '1.5px rgba(250,250,249,0.5)' : 'none',
+                          fontSize: 'clamp(2.5rem, 6vw, 5.5rem)',
+                          fontFamily: "'Kanit', sans-serif",
+                          lineHeight: '1.2',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#CA8A04';
+                          e.currentTarget.style.WebkitTextStroke = 'none';
+                          e.currentTarget.style.transform = 'scale(1.05) translateY(-5px)';
+                          e.currentTarget.style.textShadow = '0 10px 30px rgba(202,138,4,0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = isOutline ? 'transparent' : '#FAFAF9';
+                          e.currentTarget.style.WebkitTextStroke = isOutline ? '1.5px rgba(250,250,249,0.5)' : 'none';
+                          e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                          e.currentTarget.style.textShadow = 'none';
+                        }}
+                      >
+                        {skill}
+                      </span>
+                      <span 
+                        style={{ 
+                          color: '#CA8A04', 
+                          fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', 
+                          opacity: 0.5 
+                        }}
+                      >
+                        ✦
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 
 /* ═══════════════════════════════════════════════════════════
    5. PROJECTS SECTION
@@ -723,6 +961,7 @@ export default function App() {
       <HeroSection />
       <MarqueeSection />
       <AboutSection />
+      <ExperienceSection />
       <ServicesSection />
       <ProjectsSection />
       <ContactSection />
