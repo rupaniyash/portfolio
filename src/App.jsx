@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { GithubIcon, LinkedinIcon, BriefcaseIcon, GraduationCapIcon } from 'lucide-react';
 import avatarFace from './assets/avatar_face_2.png';
 import resumePdf from '../Resume_YashRupani.pdf';
 
@@ -91,7 +92,9 @@ const AnimatedText = ({ text, className = '', style = {} }) => {
     offset: ['start 0.8', 'end 0.2'],
   });
 
-  const chars = text.split('');
+  // Split into words + whitespace runs (not individual characters) — keeps the
+  // same scroll-reveal effect with far fewer animated nodes for long paragraphs.
+  const chars = text.split(/(\s+)/).filter(Boolean);
 
   return (
     <p ref={ref} className={className} style={{ display: 'block', ...style }}>
@@ -183,11 +186,40 @@ const LiveProjectButton = ({ url }) => (
   </a>
 );
 
+// ── SocialLinks ──
+const socialLinkClassName = 'rounded-full border-2 flex items-center justify-center w-11 h-11 shrink-0 transition-all duration-200 hover:bg-[#D7E2EA]/10 hover:scale-105';
+const socialLinkStyle = { borderColor: '#D7E2EA' };
+
+const SocialLinks = () => (
+  <div className="flex gap-3">
+    <a
+      href="https://www.linkedin.com/in/yash-rupani-/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+      className={socialLinkClassName}
+      style={socialLinkStyle}
+    >
+      <LinkedinIcon size={20} color="#D7E2EA" strokeWidth={1.75} />
+    </a>
+    <a
+      href="https://github.com/rupaniyash"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub"
+      className={socialLinkClassName}
+      style={socialLinkStyle}
+    >
+      <GithubIcon size={20} color="#D7E2EA" strokeWidth={1.75} />
+    </a>
+  </div>
+);
+
 /* ═══════════════════════════════════════════════════════════
    1. HERO SECTION
    ═══════════════════════════════════════════════════════════ */
 const HeroSection = () => {
-  const navLinks = ['About', 'Skills', 'Projects', 'Contact'];
+  const navLinks = ['About', 'Journey', 'Skills', 'Projects', 'Contact'];
   const headingRef = useRef(null);
   const [headingWidth, setHeadingWidth] = useState(null);
 
@@ -272,16 +304,16 @@ const HeroSection = () => {
           className="flex justify-between items-end"
           style={{ width: headingWidth ?? '100%', marginTop: 'clamp(0.5rem, 2vh, 1.5rem)' }}
         >
-          <FadeIn delay={0.35} y={20}>
+          <FadeIn delay={0.35} y={20} className="w-full max-w-[270px] sm:max-w-[340px] md:max-w-[480px]">
             <p
-              className="font-light uppercase tracking-wide leading-snug text-left max-w-[200px] sm:max-w-[300px] md:max-w-[400px]"
+              className="font-light uppercase tracking-wide leading-snug text-left"
               style={{
                 color: '#D7E2EA',
                 fontSize: 'clamp(0.75rem, 1.4vw, 1.2rem)',
                 fontFamily: "'Kanit', sans-serif",
               }}
             >
-              a data engineer driven by crafting striking and scalable pipelines
+              a software engineer bridging data pipelines and AI-driven systems at scale
             </p>
           </FadeIn>
 
@@ -289,102 +321,10 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-end sm:items-center">
               <DownloadResumeButton />
               <ContactButton />
+              <SocialLinks />
             </div>
           </FadeIn>
         </div>
-      </div>
-    </section>
-  );
-};
-
-/* ═══════════════════════════════════════════════════════════
-   2. MARQUEE SECTION
-   ═══════════════════════════════════════════════════════════ */
-const MARQUEE_IMAGES = [
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
-  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
-  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
-  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
-  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
-  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
-  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
-  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
-  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
-  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
-  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
-  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
-  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
-  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
-  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
-];
-
-const MarqueeSection = () => {
-  const sectionRef = useRef(null);
-  const [offset, setOffset] = useState(200);
-
-  const row1 = MARQUEE_IMAGES.slice(0, 11);
-  const row2 = MARQUEE_IMAGES.slice(11);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const sectionTop = sectionRef.current.getBoundingClientRect().top + window.scrollY;
-      const newOffset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
-      setOffset(newOffset);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const ImageTile = ({ src }) => (
-    <div className="shrink-0 rounded-2xl overflow-hidden" style={{ width: 420, height: 270 }}>
-      <img
-        src={src}
-        alt="showcase"
-        loading="lazy"
-        className="w-full h-full object-cover"
-      />
-    </div>
-  );
-
-  return (
-    <section
-      ref={sectionRef}
-      className="pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden"
-      style={{ background: '#0C0C0C' }}
-    >
-      {/* Row 1 — moves right */}
-      <div
-        className="flex gap-3 mb-3"
-        style={{
-          transform: `translateX(${offset - 200}px)`,
-          willChange: 'transform',
-        }}
-      >
-        {[...row1, ...row1, ...row1].map((src, i) => (
-          <ImageTile key={`r1-${i}`} src={src} />
-        ))}
-      </div>
-
-      {/* Row 2 — moves left */}
-      <div
-        className="flex gap-3"
-        style={{
-          transform: `translateX(${-(offset - 200)}px)`,
-          willChange: 'transform',
-        }}
-      >
-        {[...row2, ...row2, ...row2].map((src, i) => (
-          <ImageTile key={`r2-${i}`} src={src} />
-        ))}
       </div>
     </section>
   );
@@ -466,170 +406,171 @@ const AboutSection = () => {
 };
 
 /* ═══════════════════════════════════════════════════════════
-   3.5 EXPERIENCE SECTION
+   3.5 JOURNEY SECTION (work + education, merged timeline)
    ═══════════════════════════════════════════════════════════ */
-const EXPERIENCE = [
+const JOURNEY = [
   {
-    role: 'Software Engineering Intern',
-    company: 'QuickGrants',
+    type: 'work',
+    title: 'Software Engineering Intern',
+    org: 'QuickGrants',
     date: 'May 2026 – Present',
     location: 'Remote, USA',
-    points: [
-      'Engineered an automated rule generation pipeline using OCR and text chunking, processing 100+ page policy documents and reducing manual data extraction time by 80%.',
-      'Architected backend parsing workflows to transform unstructured text into structured reports, accelerating the preparation time for technical product demonstrations by 15 hours per week.',
-      'Optimized the data extraction accuracy of the parsing tool to 95%, ensuring reliable and formatted outputs for client-facing engineering prototypes.',
-    ],
+    tagline: 'Turning messy policy PDFs into structured, queryable data.',
   },
   {
-    role: 'Research Assistant – Data Engineering',
-    company: 'Oregon State University',
-    date: 'May 2026 – Present',
-    location: 'OR, USA',
-    points: [
-      'Engineered an end-to-end autonomous ETL pipeline for unstructured multimedia data, leveraging Python-based preprocessing to eliminate 40% of manual data preparation for Agentic AI workflows.',
-      'Refined backend data structures and indexing strategies for AI Agents, slashing retrieval latency by 25% and boosting real-time inference performance.',
-      'Developed robust data validation frameworks to ensure 100% data integrity while enabling scalable ingestion of terabyte-scale datasets.',
-    ],
+    type: 'work',
+    title: 'Research Assistant',
+    org: 'Oregon State University',
+    date: 'Oct 2025 – May 2026',
+    location: 'Corvallis, OR, USA',
+    tagline: 'Built an alliance-variance metric for AI-mediated conversations, feeding an AMCIS 2026 paper.',
   },
   {
-    role: 'Sr. Systems Engineer (Data Engineering)',
-    company: 'Infosys (Charter Communications)',
+    type: 'education',
+    title: 'M.E. in Computer Science',
+    org: 'Oregon State University',
+    date: 'Sep 2023 – Dec 2025',
+    location: 'Corvallis, OR, USA',
+    tagline: 'Graduate coursework spanning data engineering, ML, and distributed systems.',
+  },
+  {
+    type: 'work',
+    title: 'AI Agent RAG/ML Scientist Intern',
+    org: 'GrantAide',
+    date: 'Jul 2025 – Sep 2025',
+    location: 'Remote, USA',
+    tagline: 'Shipped a RAG-based grant discovery system, lifting retrieval accuracy 40%.',
+  },
+  {
+    type: 'work',
+    title: 'Senior Systems Engineer',
+    org: 'Infosys (Charter Communications)',
     date: 'Jun 2021 – Jun 2023',
     location: 'Maharashtra, India',
-    points: [
-      'Spearheaded the modernization of enterprise data quality pipelines, automating workflows to eliminate 10+ hours/week of manual intervention.',
-      'Designed high-performance ETL workflows using Apache Spark to process large-scale system monitoring data, compressing runtime by 40% per cycle.',
-      'Constructed dynamic dashboards from semi-structured logs, replacing manual analysis with automated monitoring solutions.',
-    ],
-  },
-];
-
-const EDUCATION = [
-  {
-    degree: 'Master of Engineering in Computer Science',
-    school: 'Oregon State University, USA',
-    date: 'Sep 2023 – Dec 2025',
+    tagline: 'Modernized enterprise data-quality pipelines and automated CI/CD checks.',
   },
   {
-    degree: 'Bachelor of Technology in Electrical Engineering',
-    school: 'PDEU, India',
+    type: 'education',
+    title: 'B.Tech in Electrical Engineering',
+    org: 'PDEU',
     date: 'Aug 2017 – Jun 2021',
+    location: 'Gujarat, India',
+    tagline: 'Undergraduate foundation in engineering and systematic problem-solving.',
   },
 ];
 
-const ExperienceSection = () => {
+const JourneyCard = ({ entry }) => {
+  const Icon = entry.type === 'work' ? BriefcaseIcon : GraduationCapIcon;
   return (
-    <section
-      id="experience"
-      className="py-20 sm:py-24 md:py-32 px-5 sm:px-8 md:px-10"
-      style={{ background: '#0C0C0C' }}
+    <div
+      className="border-2 flex flex-col gap-2 w-full"
+      style={{
+        background: '#0C0C0C',
+        borderColor: '#D7E2EA',
+        borderRadius: 'clamp(16px, 3vw, 32px)',
+        padding: 'clamp(1.25rem, 3vw, 2rem)',
+      }}
     >
-      <FadeIn delay={0} y={40}>
-        <h2
-          className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24"
-          style={{
-            color: '#FAFAF9',
-            fontSize: 'clamp(3rem, 12vw, 160px)',
-            fontFamily: "'Kanit', sans-serif",
-          }}
-        >
-          Experience
-        </h2>
-      </FadeIn>
-
-      <div className="max-w-4xl mx-auto relative">
-        {/* Glowing Timeline Line */}
-        <div 
-          className="absolute left-[7px] sm:left-[11px] top-0 bottom-0 w-[2px] opacity-20"
-          style={{
-            background: 'linear-gradient(to bottom, transparent, #CA8A04 5%, #CA8A04 95%, transparent)',
-          }}
-        />
-
-        <div className="flex flex-col gap-12 sm:gap-20">
-          {EXPERIENCE.map((exp, i) => (
-            <FadeIn key={i} delay={0.1} y={30}>
-              <div className="relative flex gap-6 sm:gap-10 group">
-                {/* Timeline Dot Column */}
-                <div className="relative w-[16px] sm:w-[24px] flex-shrink-0 flex justify-center mt-2">
-                  <div 
-                    className="w-[10px] h-[10px] rounded-full bg-[#CA8A04] transition-all duration-300 group-hover:scale-150 group-hover:shadow-[0_0_15px_#CA8A04]"
-                  />
-                </div>
-                
-                {/* Content Column */}
-                <div className="flex flex-col flex-1 w-full pb-4">
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-4">
-                    <h3 className="font-bold text-[#FAFAF9] text-xl sm:text-2xl" style={{ fontFamily: "'Kanit', sans-serif", letterSpacing: '0.05em' }}>
-                      {exp.role}
-                    </h3>
-                    <span className="text-[#CA8A04] font-medium text-sm sm:text-base mt-1 sm:mt-0 tracking-widest uppercase">
-                      {exp.date}
-                    </span>
-                  </div>
-                  
-                  <h4 className="text-[#D7E2EA] opacity-70 text-lg mb-6 tracking-wide" style={{ fontFamily: "'Kanit', sans-serif" }}>
-                    {exp.company} <span className="opacity-50 mx-2">•</span> {exp.location}
-                  </h4>
-                  
-                  <ul className="flex flex-col gap-3">
-                    {exp.points.map((point, j) => {
-                      // Highlight numbers and percentages
-                      const highlightedPoint = point.replace(/\b(\d+(?:\.\d+)?%?|\d+\+)\b/g, '<span style="color: #CA8A04; font-weight: 600;">$1</span>');
-                      return (
-                        <li key={j} className="text-[#FAFAF9] opacity-80 leading-relaxed text-sm sm:text-base flex items-start gap-3">
-                          <span className="text-[#CA8A04] mt-1 opacity-50">▹</span>
-                          <span dangerouslySetInnerHTML={{ __html: highlightedPoint }} />
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-
-        {/* Education Sub-section */}
-        <FadeIn delay={0.2} y={30}>
-          <div className="mt-24 sm:mt-32 relative flex gap-6 sm:gap-10 group">
-             {/* Education Icon/Dot Column */}
-             <div className="relative w-[16px] sm:w-[24px] flex-shrink-0 flex justify-center mt-2">
-               <div 
-                  className="w-[18px] h-[18px] rounded-full border-2 border-[#CA8A04] bg-[#0C0C0C] flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_15px_#CA8A04]"
-                >
-                  <div className="w-[6px] h-[6px] rounded-full bg-[#CA8A04]" />
-                </div>
-              </div>
-              
-              {/* Education Content Column */}
-              <div className="flex flex-col flex-1 w-full">
-                <h3 className="font-black uppercase text-[#FAFAF9] text-2xl sm:text-3xl mb-8 tracking-widest" style={{ fontFamily: "'Kanit', sans-serif" }}>
-                  Education
-                </h3>
-
-                <div className="flex flex-col gap-8">
-                  {EDUCATION.map((edu, i) => (
-                    <div key={i} className="flex flex-col border-l-2 border-[#CA8A04]/20 pl-6">
-                      <h4 className="font-bold text-[#FAFAF9] text-lg sm:text-xl" style={{ fontFamily: "'Kanit', sans-serif", letterSpacing: '0.05em' }}>
-                        {edu.degree}
-                      </h4>
-                      <p className="text-[#D7E2EA] opacity-70 text-base mt-1 tracking-wide" style={{ fontFamily: "'Kanit', sans-serif" }}>
-                        {edu.school}
-                      </p>
-                      <span className="text-[#CA8A04] font-medium text-sm mt-2 tracking-widest uppercase opacity-80">
-                        {edu.date}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-          </div>
-        </FadeIn>
+      <div className="flex items-center gap-2">
+        <Icon size={16} color="#CA8A04" strokeWidth={1.75} />
+        <span className="text-[#CA8A04] font-medium text-xs sm:text-sm tracking-widest uppercase">
+          {entry.date}
+        </span>
       </div>
-    </section>
+      <h3
+        className="font-bold text-[#FAFAF9] text-lg sm:text-xl"
+        style={{ fontFamily: "'Kanit', sans-serif", letterSpacing: '0.05em' }}
+      >
+        {entry.title}
+      </h3>
+      <p
+        className="text-[#D7E2EA] opacity-70 text-sm sm:text-base tracking-wide"
+        style={{ fontFamily: "'Kanit', sans-serif" }}
+      >
+        {entry.org} <span className="opacity-50 mx-2">•</span> {entry.location}
+      </p>
+      <p
+        className="text-[#FAFAF9] opacity-80 text-sm sm:text-base leading-relaxed"
+        style={{ fontFamily: "'Kanit', sans-serif" }}
+      >
+        {entry.tagline}
+      </p>
+    </div>
   );
 };
+
+const JourneyRow = ({ entry, index }) => {
+  const isLeft = index % 2 === 0;
+  return (
+    <FadeIn
+      delay={0.1}
+      y={20}
+      x={isLeft ? -40 : 40}
+      className="relative flex items-start gap-3 sm:gap-6 md:gap-8 group"
+    >
+      {/* Dot / connector column — always the middle flex item, so it always
+          sits at the true horizontal center of the row (equal flex-1 slots
+          on both sides), at every screen width, not just md:+. */}
+      <div className="relative flex-shrink-0 flex items-center justify-center mt-2 w-6 sm:w-10 md:w-16 order-2">
+        <div className="w-[10px] h-[10px] rounded-full bg-[#CA8A04] relative z-10 transition-all duration-300 group-hover:scale-150 group-hover:shadow-[0_0_15px_#CA8A04]" />
+        <div
+          className="hidden sm:block absolute top-1/2 -translate-y-1/2 h-[2px] w-4 sm:w-6"
+          style={{
+            [isLeft ? 'right' : 'left']: '50%',
+            background: isLeft
+              ? 'linear-gradient(to left, #CA8A04, transparent)'
+              : 'linear-gradient(to right, #CA8A04, transparent)',
+          }}
+        />
+      </div>
+
+      {/* Left slot */}
+      <div className="flex-1 order-1">
+        {isLeft && <JourneyCard entry={entry} />}
+      </div>
+
+      {/* Right slot */}
+      <div className="flex-1 order-3">
+        {!isLeft && <JourneyCard entry={entry} />}
+      </div>
+    </FadeIn>
+  );
+};
+
+const JourneySection = () => (
+  <section
+    id="journey"
+    className="py-20 sm:py-24 md:py-32 px-5 sm:px-8 md:px-10"
+    style={{ background: '#0C0C0C' }}
+  >
+    <FadeIn delay={0} y={40}>
+      <h2
+        className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-24"
+        style={{
+          color: '#FAFAF9',
+          fontSize: 'clamp(3rem, 12vw, 160px)',
+          fontFamily: "'Kanit', sans-serif",
+        }}
+      >
+        My Journey
+      </h2>
+    </FadeIn>
+
+    <div className="max-w-5xl mx-auto relative">
+      {/* Timeline line: dead-center of this container at every width */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] opacity-20"
+        style={{ background: 'linear-gradient(to bottom, transparent, #CA8A04 5%, #CA8A04 95%, transparent)' }}
+      />
+
+      <div className="flex flex-col gap-10 sm:gap-14 md:gap-20">
+        {JOURNEY.map((entry, i) => (
+          <JourneyRow key={i} entry={entry} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 /* ═══════════════════════════════════════════════════════════
    4. SKILLS SECTION
@@ -706,7 +647,7 @@ const ServicesSection = () => {
         </h2>
       </FadeIn>
 
-      <div 
+      <div
         className="flex flex-col gap-2 sm:gap-4 transform -rotate-2 scale-105"
         style={{
           WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
@@ -716,10 +657,10 @@ const ServicesSection = () => {
         {rows.map((row, i) => {
           const isReverse = i % 2 !== 0;
           const duration = 40 + (i * 15); // speeds: 40s, 55s, 70s
-          
+
           return (
             <div key={i} className="marquee-container relative flex overflow-hidden whitespace-nowrap w-full w-[110vw] -ml-[5vw]">
-              <div 
+              <div
                 className="marquee-track flex items-center"
                 style={{
                   width: 'max-content',
@@ -756,11 +697,11 @@ const ServicesSection = () => {
                       >
                         {skill}
                       </span>
-                      <span 
-                        style={{ 
-                          color: '#CA8A04', 
-                          fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', 
-                          opacity: 0.5 
+                      <span
+                        style={{
+                          color: '#CA8A04',
+                          fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                          opacity: 0.5
                         }}
                       >
                         ✦
@@ -930,6 +871,9 @@ const ContactSection = () => (
     <FadeIn delay={0.35} y={20} style={{ marginTop: '1rem', marginBottom: '2rem' }}>
       <ContactButton />
     </FadeIn>
+    <FadeIn delay={0.45} y={20}>
+      <SocialLinks />
+    </FadeIn>
   </section>
 );
 
@@ -959,9 +903,8 @@ export default function App() {
   return (
     <main style={{ background: '#0C0C0C', overflowX: 'clip', fontFamily: "'Kanit', sans-serif" }}>
       <HeroSection />
-      <MarqueeSection />
       <AboutSection />
-      <ExperienceSection />
+      <JourneySection />
       <ServicesSection />
       <ProjectsSection />
       <ContactSection />

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# graphify tool output (local knowledge-graph cache, not part of the site)
+graphify-out
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
